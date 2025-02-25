@@ -1,0 +1,25 @@
+.example-full-width {
+    width: 100%;
+    max-width: 380px;
+    margin-bottom: -6px;
+  }
+  
+
+  .card {
+    padding: 20px;
+    padding-bottom: 30px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background: white;
+    max-width: 400px;
+    width: 100%;
+    margin: auto; /* Asegura que siempre esté centrado */
+  }
+  
+  /* 📱 Si la pantalla es menor a 576px (dispositivos móviles) */
+  @media (max-width: 576px) {
+    .card {
+      width: 90%; /* Ocupará el 90% del ancho */
+      max-width: none; /* Evita que se limite a 450px en móviles */
+    }
+  }

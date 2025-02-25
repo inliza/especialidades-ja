@@ -1,0 +1,241 @@
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+  <div class="col-12 col-md-8 col-lg-6 mt-3">
+    <div class="card p-4 shadow">
+      <h2 class="form-title text-center">Crea tu cuenta</h2>
+      <form
+        id="signup-form"
+        name="signupForm"
+        #signupForm="ngForm"
+        (ngSubmit)="(signupForm.valid)"
+      >
+        <div class="row justify-content-center">
+          <div class="col-12">
+            <div class="row">
+              <!-- Columna 1 y 2 en dispositivos grandes y en una sola columna en móviles -->
+              <div class="col-12 col-md-6">
+                <!-- Nombre Completo -->
+                <mat-form-field
+                  class="example-full-width mt-3"
+                  appearance="outline"
+                >
+                  <mat-label>Nombre</mat-label>
+                  <input
+                    matInput
+                    required
+                    type="text"
+                    name="fullName"
+                    #fullName="ngModel"
+                    [(ngModel)]="account.firstName"
+                  />
+                  @if (fullName.invalid && fullName.touched) {
+                  <mat-error>Este campo es obligatorio</mat-error>
+                  }
+                </mat-form-field>
+
+                <!-- Apellido -->
+                <mat-form-field
+                  class="example-full-width mt-2"
+                  appearance="outline"
+                >
+                  <mat-label>Apellido</mat-label>
+                  <input
+                    matInput
+                    required
+                    type="text"
+                    name="lastname"
+                    #lastname="ngModel"
+                    [(ngModel)]="account.lastName"
+                  />
+                  @if (lastname.invalid && lastname.touched) {
+                  <mat-error>Este campo es obligatorio</mat-error>
+                  }
+                </mat-form-field>
+
+                <!-- Fecha de Nacimiento -->
+                <mat-form-field
+                  class="example-full-width mt-2"
+                  appearance="outline"
+                >
+                  <mat-label>Fecha de Nacimiento</mat-label>
+                  <input
+                    matInput
+                    required
+                    type="date"
+                    name="birthDate"
+                    #birthDate="ngModel"
+                    [(ngModel)]="account.birthDate"
+                  />
+                  @if (birthDate.invalid && birthDate.touched) {
+                  <mat-error>Este campo es obligatorio</mat-error>
+                  }
+                </mat-form-field>
+
+                <!-- Iglesia -->
+                <mat-form-field
+                  class="example-full-width mt-2"
+                  appearance="outline"
+                >
+                  <mat-label>Iglesia</mat-label>
+                  <input
+                    matInput
+                    required
+                    type="text"
+                    name="church"
+                    #church="ngModel"
+                    [(ngModel)]="account.church"
+                  />
+                  @if (church.invalid && church.touched) {
+                  <mat-error>Este campo es obligatorio</mat-error>
+                  }
+                </mat-form-field>
+
+                <!-- Correo -->
+                <mat-form-field
+                  class="example-full-width mt-2"
+                  appearance="outline"
+                >
+                  <mat-label>Correo</mat-label>
+                  <input
+                    matInput
+                    required
+                    type="email"
+                    name="email"
+                    email="true"
+                    #email="ngModel"
+                    [(ngModel)]="account.email"
+                  />
+                  <mat-icon matSuffix>email</mat-icon>
+                  @if (email.errors?.['email']) {
+                  <mat-error>Debe escribir un correo válido</mat-error>
+                  } @if (email.errors?.['required']) {
+                  <mat-error>Este campo es obligatorio</mat-error>
+                  }
+                </mat-form-field>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <!-- Alias -->
+                <mat-form-field
+                  class="example-full-width mt-3"
+                  appearance="outline"
+                >
+                  <mat-label>Alias</mat-label>
+                  <input
+                    matInput
+                    required
+                    type="text"
+                    name="alias"
+                    #alias="ngModel"
+                    [(ngModel)]="account.alias"
+                  />
+                  @if (alias.invalid && alias.touched) {
+                  <mat-error>Este campo es obligatorio</mat-error>
+                  }
+                </mat-form-field>
+
+                <!-- Teléfono -->
+                <mat-form-field
+                  class="example-full-width mt-2"
+                  appearance="outline"
+                >
+                  <mat-label>Teléfono</mat-label>
+                  <input
+                    matInput
+                    required
+                    type="tel"
+                    name="phone"
+                    #phone="ngModel"
+                    [(ngModel)]="account.phone"
+                  />
+                  @if (phone.invalid && phone.touched) {
+                  <mat-error>Este campo es obligatorio</mat-error>
+                  }
+                </mat-form-field>
+
+                <!-- Zona -->
+                <mat-form-field
+                  class="example-full-width mt-2"
+                  appearance="outline"
+                >
+                  <mat-label>Zona</mat-label>
+                  <input
+                    matInput
+                    required
+                    type="text"
+                    name="zone"
+                    #zone="ngModel"
+                    [(ngModel)]="account.zone"
+                  />
+                  @if (zone.invalid && zone.touched) {
+                  <mat-error>Este campo es obligatorio</mat-error>
+                  }
+                </mat-form-field>
+
+                <!-- Rango -->
+                <mat-form-field
+                  class="example-full-width mt-2"
+                  appearance="outline"
+                >
+                  <mat-label>Rango</mat-label>
+                  <input
+                    matInput
+                    required
+                    type="text"
+                    name="rank"
+                    #rank="ngModel"
+                    [(ngModel)]="account.rank"
+                  />
+                  @if (rank.invalid && rank.touched) {
+                  <mat-error>Este campo es obligatorio</mat-error>
+                  }
+                </mat-form-field>
+
+                <!-- Contraseña -->
+                <mat-form-field
+                  class="example-full-width mt-2"
+                  appearance="outline"
+                >
+                  <mat-label>Contraseña</mat-label>
+                  <input
+                    matInput
+                    required
+                    type="password"
+                    name="password"
+                    #password="ngModel"
+                    [(ngModel)]="account.password"
+                  />
+                  <mat-icon matSuffix>lock</mat-icon>
+                  @if (password.invalid && password.touched) {
+                  <mat-error>Este campo es obligatorio</mat-error>
+                  }
+                </mat-form-field>
+              </div>
+
+              <!-- Botones -->
+              <div class="col-12 text-center">
+                <button
+                  class="btn mt-4 btn-outline-primary w-50"
+                  mat-button
+                  type="submit"
+                  [disabled]="signupForm.invalid"
+                >
+                  Registrarse
+                </button>
+              </div>
+              <div class="col-12 text-center">
+                <button
+                  class="btn mt-4 btn-outline-secondary w-50"
+                  mat-button
+                  type="button"
+                  [routerLink]="'/login'"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
