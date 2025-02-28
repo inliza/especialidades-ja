@@ -1,75 +1,99 @@
-<div class="d-flex justify-content-center align-items-center min-vh-100">
-  <div class="col-12 col-md-6 col-lg-4">
-    <div class="card p-4 shadow">
-        <img src="assets/images/logo-educacion.png" alt="Logo Educación" width="150"   class="mx-auto d-block mb-3"
+@if(isLoading){
+<div
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  "
+>
+  <mat-spinner></mat-spinner>
+</div>
+}@else {
+<div>
+  <div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card p-4 shadow">
+        <img
+          src="assets/images/logo-educacion.png"
+          alt="Logo Educación"
+          width="150"
+          class="mx-auto d-block mb-3"
         />
-      <h2 class="form-title text-center">Inicia sesión</h2>
-      <form
-        id="login-form"
-        name="loginForm"
-        #loginForm="ngForm"
-        (ngSubmit)="(loginForm.valid)"
-      >
-        <div class="row text-center">
-          <div class="col-12">
-            <mat-form-field class="example-full-width mt-3" appearance="outline">
-              <mat-label>Correo</mat-label>
-              <input
-                matInput
-                required
-                type="email"
-                name="email"
-                email="true"
-                #email="ngModel"
-                [(ngModel)]="correo"
-              />
-              <mat-icon matSuffix>email</mat-icon>
-              @if (email.errors?.['email']) {
-              <mat-error>Debe escribir un correo válido</mat-error>
-              } @if (email.errors?.['required']) {
-              <mat-error> Este campo es obligatorio </mat-error>
-              }
-            </mat-form-field>
-          </div>
-          <div class="col-12">
-            <mat-form-field class="example-full-width mt-2" appearance="outline">
-              <mat-label>Contraseña</mat-label>
-              <input
-                matInput
-                type="password"
-                name="password"
-                #password="ngModel"
-                [(ngModel)]="clave"
-                required
-              />
-              <mat-icon matSuffix>lock</mat-icon>
-              @if (password.errors?.['required']) {
-              <mat-error> Este campo es obligatorio </mat-error>
-              }
-            </mat-form-field>
+        <h2 class="form-title text-center">Inicia sesión</h2>
+        <form
+          id="login-form"
+          name="loginForm"
+          #loginForm="ngForm"
+          (ngSubmit)="loginForm.valid && login()"
+        >
+          <div class="row text-center">
+            <div class="col-12">
+              <mat-form-field
+                class="example-full-width mt-3"
+                appearance="outline"
+              >
+                <mat-label>Correo</mat-label>
+                <input
+                  matInput
+                  required
+                  type="email"
+                  name="email"
+                  email="true"
+                  #email="ngModel"
+                  [(ngModel)]="correo"
+                />
+                <mat-icon matSuffix>email</mat-icon>
+                @if (email.errors?.['email']) {
+                <mat-error>Debe escribir un correo válido</mat-error>
+                } @if (email.errors?.['required']) {
+                <mat-error> Este campo es obligatorio </mat-error>
+                }
+              </mat-form-field>
+            </div>
+            <div class="col-12">
+              <mat-form-field
+                class="example-full-width mt-2"
+                appearance="outline"
+              >
+                <mat-label>Contraseña</mat-label>
+                <input
+                  matInput
+                  type="password"
+                  name="password"
+                  #password="ngModel"
+                  [(ngModel)]="clave"
+                  required
+                />
+                <mat-icon matSuffix>lock</mat-icon>
+                @if (password.errors?.['required']) {
+                <mat-error> Este campo es obligatorio </mat-error>
+                }
+              </mat-form-field>
+            </div>
+            <div class="col-12 text-center">
+              <button
+                class="btn mt-4 btn-outline-primary w-50"
+                mat-button
+                type="submit"
+              >
+                Inicias sesion
+              </button>
+            </div>
           </div>
           <div class="col-12 text-center">
             <button
-              class="btn mt-4 btn-outline-primary w-50"
+              class="btn mt-4 btn-outline-secondary w-50"
               mat-button
-              type="submit"
-              [routerLink]="'/home'"
+              type="button"
+              [routerLink]="'/signup'"
             >
-              Inicias sesion
+              Crea tu cuenta
             </button>
           </div>
-        </div>
-        <div class="col-12 text-center">
-          <button
-            class="btn mt-4 btn-outline-secondary w-50"
-            mat-button
-            type="button"
-            [routerLink]="'/signup'"
-          >
-            Crea tu cuenta
-          </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </div>
+}

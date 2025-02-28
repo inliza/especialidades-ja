@@ -1,0 +1,8 @@
+.btn{
+    max-width: 200px;
+    background-color: white;
+}
+
+.btn:hover{
+    color: black;
+}

@@ -1,0 +1,37 @@
+
+.btn-create {
+    width: 180px;
+    border-radius: 5px;
+    height: 32px;
+    background-color: white;
+    border-width: 1px;
+    border-color: #228d91;
+    margin-right: 14px;
+    margin-top: 5px;
+  }
+
+  .panel-icon-delete{
+    margin-right: 18px;
+    margin-top: 7px;
+    color: red;
+}
+
+.panel-icon-edit{
+    margin-right: 7px;
+    margin-top: 9px;
+}
+
+.panel-icon-add{
+    margin-right: 3px;
+    margin-top: 9px;
+    color: #252525;
+}
+
+@media (max-width: 576px) {
+    .btn-create {
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+  }
+  

@@ -1,0 +1,50 @@
+<div class="row justify-content-center mt-4 mb-5">
+  <h3 style="text-align: center" class="title">Tus especialidades</h3>
+</div>
+
+<div class="row justify-content-center mt-5">
+  <div class="col-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Categoría</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Realizada</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of specialties; let j = index">
+          <td>{{ item.category?.name }}</td>
+          <td>{{ item.name }}</td>
+          <td>
+            <mat-checkbox class="example-margin" [(ngModel)]="item.checked">
+            </mat-checkbox>
+          </td>
+          <td *ngIf="false">
+            <button
+              mat-icon-button
+              class="table-icon panel-icon-edit"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Editar sub-nivel"
+              (click)="edit()"
+            >
+              <i class="fa fa-edit"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-12 text-center mb-5">
+    <button
+      class="btn mt-4 btn-outline-primary w-50"
+      mat-button
+      type="submit"
+      (click)="save()"
+    >
+      Guardar
+    </button>
+  </div>
+</div>

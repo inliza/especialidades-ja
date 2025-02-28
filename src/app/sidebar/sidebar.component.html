@@ -1,18 +1,23 @@
-<mat-sidenav-container class="example-container">
-    <!-- Sidebar -->
-    <mat-sidenav #sidenav mode="side" opened>
+<div class="example-container">
+  <mat-sidenav-container class="example-sidenav-container">
+    <mat-sidenav #sidenav mode="side" [opened]="showSidenav" class="custom-sidenav">
       <mat-nav-list>
-        <a mat-list-item routerLink="/home">Home</a>
-        <a mat-list-item routerLink="/about">About</a>
-        <a mat-list-item routerLink="/contact">Contact</a>
+        <ng-container *ngFor="let option of options">
+          <a mat-list-item [routerLink]="option.route">
+            <mat-icon class="nav-icon">{{ option.icon }}</mat-icon>
+            <span class="nav-caption" *ngIf="!isSmallScreen">{{ option.title }}</span>
+          </a>
+        </ng-container>
+        <a mat-list-item (click)="logout()">
+          <mat-icon class="nav-icon">exit_to_app</mat-icon>
+          <span class="nav-caption" *ngIf="!isSmallScreen">Cerrar sesión</span>
+        </a>
       </mat-nav-list>
     </mat-sidenav>
-  
-    <!-- Content -->
     <mat-sidenav-content>
-      <div class="content">
+      <div class="containerWhite container-fluid">
         <router-outlet></router-outlet>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
-  
+</div>

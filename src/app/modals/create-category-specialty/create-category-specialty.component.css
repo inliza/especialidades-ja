@@ -1,0 +1,27 @@
+.example-full-width {
+    width: 100%;
+    max-width: 340px;
+  }
+
+  .modal-header {
+    position: relative;
+  }
+  
+  button.close {
+    position: absolute;
+    top: 0;
+    right: 26px;
+    background: none;
+    border: none;
+    font-size: 26px;
+    color: #000;
+  }
+  
+  button.close:hover {
+    color: #d9534f; /* Color en hover */
+  }
+  
+  button.close:focus {
+    outline: none; /* Elimina el borde al hacer clic */
+  }
+  

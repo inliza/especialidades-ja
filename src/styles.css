@@ -8,6 +8,47 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   /* background: white; */
-  background-color: #F4F6F9;
+  background-color: white !important;
   color: #333333;
+}
+
+.title {
+  color: #2c3e50;
+  font-size: 27px !important;
+  font-weight: 500 !important;
+  cursor: pointer;
+  margin-bottom: 0px !important;
+
+}
+
+.sub-title {
+  color: #2c3e50;
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  cursor: pointer;
+}
+
+/* Estilos para el modal */
+.custom-modal .mat-dialog-container {
+  border-radius: 0;  /* Elimina el borde redondeado */
+  box-shadow: none;   /* Elimina la sombra */
+  border: none;       /* Elimina el borde */
+  padding: 0;         /* Elimina el relleno */
+  background-color: black;  /* Establece el color de fondo */
+}
+
+::ng-deep .custom-modal .mat-dialog-container {
+  border-radius: 0;     /* Elimina el borde redondeado */
+  box-shadow: none;      /* Elimina la sombra */
+  border: none;          /* Elimina el borde */
+  padding: 0;            /* Elimina el relleno */
+  background-color: black;  /* Establece el color de fondo */
+}
+
+.mat-dialog-container.custom-modal {
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  padding: 0;
+  background-color: black;
 }

@@ -1,0 +1,88 @@
+<div class="row justify-content-center mt-4 mb-4">
+  <h3 style="text-align: center" class="title">Gestion de especialidades</h3>
+</div>
+
+<div class="row">
+    <div class="col d-flex justify-content-end justify-content-sm-center mb-4" style="flex: 1 0 auto;">
+      <button (click)="openModal(false, true)" class="btn-create">Agregar categoria</button>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col d-flex justify-content-end justify-content-sm-center mb-5" style="flex: 1 0 auto;">
+      <button (click)="openModal(false)" class="btn-create">Agregar especialidad</button>
+    </div>
+  </div>
+  
+  
+
+<mat-accordion class="mt-4">
+  <mat-expansion-panel
+    *ngFor="let option of categories; let i = index"
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{ option.name }}</mat-panel-title>
+      <!-- <mat-panel-description>
+        Lista de especialidades
+      </mat-panel-description> -->
+      <button
+        mat-icon-button
+        class="table-icon panel-icon-add"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Agregar sub-nivel"
+        (click)="add()"
+        *ngIf="isAdmin"
+      >
+        <!-- (click)="addLevel($event)" -->
+        <i class="fa fa-plus-circle"></i>
+      </button>
+      <button
+        mat-icon-button
+        class="table-icon panel-icon-edit"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Editar nivel"
+        (click)="edit()"
+        *ngIf="isAdmin"
+      >
+        <i class="fa fa-edit"></i>
+      </button>
+    </mat-expansion-panel-header>
+    <div class="row justify-content-center mt-4">
+      <div class="col-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Activa</th>
+              <th scope="col" *ngIf="false">Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of option.specialties; let j = index">
+              <td>{{ item.id }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.active === true ? 'Si' : 'No' }}</td>
+              <td *ngIf="false">
+                <button
+                  mat-icon-button
+                  class="table-icon panel-icon-edit"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Editar sub-nivel"
+                  (click)="edit()"
+                >
+                  <i class="fa fa-edit"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
