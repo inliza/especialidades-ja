@@ -77,7 +77,6 @@ export class ProfileComponent implements OnInit {
 
   editFunction() {
     if (this.isEditing) {
-      debugger
       let body = this.account;
       if (this.password !== "******") {
         body = Object.assign(this.account, {password: this.password});

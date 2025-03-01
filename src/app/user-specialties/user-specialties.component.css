@@ -6,3 +6,15 @@
 .btn:hover{
     color: black;
 }
+
+
+.btn-create {
+    width: 250px;
+    border-radius: 18px;
+    height: 32px;
+    background-color: white;
+    border-width: 1px;
+    border-color: #228d91;
+    margin-right: 14px;
+    margin-top: 5px;
+  }

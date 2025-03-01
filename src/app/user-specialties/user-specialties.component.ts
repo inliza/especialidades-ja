@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import Swal from 'sweetalert2';
 import { ToastService } from '../services/toast.service';
+import { MatDialog } from '@angular/material/dialog';
+import { UserSpecialtiesModalComponent } from '../user-specialties-modal/user-specialties-modal.component';
 
 @Component({
   selector: 'app-user-specialties',
@@ -15,21 +17,21 @@ import { ToastService } from '../services/toast.service';
 })
 export class UserSpecialtiesComponent implements OnInit {
   specialties: any[] = [];
+  specialtiesOriginal: any[] = [];
   userSpecialties: any[] = [];
-  private userId!: number;
-  edit() { }
+  categories: any[] = [];
 
   constructor(
     private service: SpecialtiesService,
     private auth: AuthService,
-    private readonly toast: ToastService
+    private readonly toast: ToastService,
+    private helperModal: MatDialog,
 
   ) { }
 
   ngOnInit(): void {
     this.getUserSpecialties();
     this.auth.loggedUser$.subscribe(user => {
-      this.userId = user?.id;
     });
   }
   getUserSpecialties() {
@@ -40,38 +42,45 @@ export class UserSpecialtiesComponent implements OnInit {
     });
   }
 
-
-  getSpecialties() {
-    this.service.getSpecialties().subscribe((data: any) => {
-      this.specialties = data;
-      this.specialties = this.specialties.map(item => ({
-        ...item,
-        checked: this.userSpecialties.find((x => item?.id === x.specialtyId)) ? true : false
-      }));
-
+  getCategorySpecialties() {
+    this.service.getCategoriesWithSpecialties().subscribe((data: any) => {
+      this.categories = data;
     });
   }
 
-  save() {
+  openModal() {
+    const levelModal = this.helperModal.open(UserSpecialtiesModalComponent, {
+      height: 'auto',
+      width: '450px',
+      maxWidth: '500px',
+      maxHeight: '700px',
+      disableClose: true,
+      data: { categories: this.categories, userSpecialties: this.userSpecialties },
+      panelClass: 'custom-modal'  // Agrega tu clase personalizada
 
-    const body = this.specialties
-      .filter(item => item.checked)  // Filtra solo las especialidades que están seleccionadas (checked)
-      .map(item => ({
-        specialtyId: item?.id,  // Usamos 'id' de la especialidad como specialtyId
-      }));
+    });
 
-    this.service.upsertUserSpecialties(body).subscribe((data: any) => {
-      console.log(data);
-      this.toast.showToast('success', 'Datos guardados');
-    }, error => {
-      console.log(error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Opps',
-        text: error.error.message,
-      });
-    }
-    );
+    levelModal.afterClosed().subscribe((result) => {
+      if (result) {
+        if (result == 'Ok') {
+          this.getUserSpecialties();
+        }
+
+      }
+    });
+  }
+
+
+  getSpecialties() {
+    this.service.getSpecialties().subscribe((data: any) => {
+      this.specialtiesOriginal = data;
+      this.specialties = data;
+      this.specialties = this.specialties.filter(item =>
+        this.userSpecialties.some(x => item?.id === x.specialtyId)
+      );
+      this.getCategorySpecialties();
+
+    });
   }
 
 }

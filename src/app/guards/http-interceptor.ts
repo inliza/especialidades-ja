@@ -24,7 +24,6 @@ export class Http_Interceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log('interceptor');
     let test = localStorage.getItem('token');
     if (test) {
       request = request.clone({

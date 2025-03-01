@@ -25,7 +25,7 @@ export class SidebarComponent implements OnInit {
   public options: any[] = [
     { route: '/home/profile', title: 'Perfil', icon: 'person' },
     { route: '/home/management-specialties', title: 'Especialidades', icon: 'library_books' },
-    { route: '/home/user-specialties', title: 'Tus Especialidades', icon: 'work' },
+    { route: '/home/user-specialties', title: 'Mis especialidades', icon: 'work' },
   ];
 
   constructor(
