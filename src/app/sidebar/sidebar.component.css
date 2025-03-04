@@ -52,11 +52,14 @@
   }
 
   /* Asegura que los íconos sean visibles y el texto solo se muestre en pantallas grandes */
-.nav-icon {
+  .nav-icon {
     display: inline-block;
     margin-right: 8px;
-    color:white;
+    color: white;
+    vertical-align: middle;
+    font-size: 23px; /* Ajuste opcional para mejor alineación */
   }
+  
   
 
   @media (max-width: 600px) {

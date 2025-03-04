@@ -11,8 +11,9 @@ import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterModule, CommonModule,
-    MatSidenavModule, MatListModule, MatToolbarModule, MatMenuModule,MatIconModule],
+  imports: [
+    RouterModule, CommonModule,
+    MatSidenavModule, MatListModule, MatToolbarModule, MatMenuModule, MatIconModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
@@ -26,11 +27,12 @@ export class SidebarComponent implements OnInit {
     { route: '/home/profile', title: 'Perfil', icon: 'person' },
     { route: '/home/management-specialties', title: 'Especialidades', icon: 'library_books' },
     { route: '/home/user-specialties', title: 'Mis especialidades', icon: 'work' },
+    { route: '/home/users', title: 'Usuarios', icon: 'people' },
   ];
 
   constructor(
-        private auth: AuthService,
-        private breakpointObserver: BreakpointObserver
+    private auth: AuthService,
+    private breakpointObserver: BreakpointObserver
   ) { }
 
   ngOnInit(): void {

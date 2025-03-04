@@ -5,6 +5,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserSpecialtiesComponent } from './user-specialties/user-specialties.component';
 import { ManagementSpecialtiesComponent } from './management-specialties/management-specialties.component';
+import { UsersComponent } from './users/users.component';
 
 export const routes: Routes = [
     {
@@ -35,6 +36,10 @@ export const routes: Routes = [
             {
                 path: 'management-specialties',
                 component: ManagementSpecialtiesComponent
+            },
+            {
+                path: 'users',
+                component: UsersComponent
             }
         ]
     }

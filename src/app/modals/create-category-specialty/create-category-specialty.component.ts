@@ -8,10 +8,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { SpecialtiesService } from '../../services/specialties.service';
 import Swal from 'sweetalert2';
 import { ToastService } from '../../services/toast.service';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @Component({
   selector: 'app-create-category-specialty',
-  imports: [FormsModule, MatInputModule, MatFormFieldModule, MatSelectModule, ReactiveFormsModule, CommonModule],
+  imports: [FormsModule, MatInputModule, MatFormFieldModule, MatSelectModule, ReactiveFormsModule, CommonModule, NgxLoadingModule],
   templateUrl: './create-category-specialty.component.html',
   styleUrl: './create-category-specialty.component.css'
 })
@@ -23,16 +24,13 @@ export class CreateCategorySpecialtyComponent implements OnInit {
   public isEditing: boolean = false;
   idCategory!: number;
   name = '';
+  public isLoading = false;
+
   constructor(
     public dialogRef: MatDialogRef<CreateCategorySpecialtyComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private service: SpecialtiesService,
-    private readonly toast: ToastService
-
-    // private readonly levelService: LevelsService,
-    // private readonly _groupsService: GroupsService,
-    // private readonly toast: ToastService
-
+    private readonly toast: ToastService,
   ) { }
 
   ngOnInit(): void {
@@ -48,23 +46,30 @@ export class CreateCategorySpecialtyComponent implements OnInit {
   }
 
   createOrUpdate() {
+    this.isLoading = true;
     if (!this.isEditing) {
       if (this.isCategory) {
         this.service.createCategory({ name: this.name }).subscribe((data: any) => {
           this.toast.showToast('success', 'Datos guardados');
           this.closeDialog('Ok');
+          this.isLoading = false;
+
         }, error => {
+          this.isLoading = false;
           Swal.fire({
             icon: 'error',
             title: 'Opps',
             text: error.error.message,
           });
         });
-      }else{
+      } else {
         this.service.createSpeciality({ name: this.name, id_category: this.selectCategories.value }).subscribe((data: any) => {
           this.toast.showToast('success', 'Datos guardados');
           this.closeDialog('Ok');
+          this.isLoading = false;
+
         }, error => {
+          this.isLoading = false;
           Swal.fire({
             icon: 'error',
             title: 'Opps',

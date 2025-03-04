@@ -7,10 +7,11 @@ import { Router, RouterModule } from '@angular/router';
 import { UsersService } from '../services/users.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthService } from '../services/auth.service';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, MatInputModule, MatFormFieldModule, MatIconModule, RouterModule, MatProgressSpinnerModule],
+  imports: [FormsModule, MatInputModule, MatFormFieldModule, MatIconModule, RouterModule, MatProgressSpinnerModule, NgxLoadingModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
     private service: UsersService, 
     private auth: AuthService,
     private router: Router,
-
+    
   ) { }
 
   ngOnInit(): void {

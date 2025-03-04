@@ -37,6 +37,11 @@ export class UsersService {
     return this.http.get<any>(urlAPI);
   }
 
+  getAll(): Observable<any> {
+    const urlAPI = this.globals.urlApi + `users/get-all`;
+    return this.http.get<any>(urlAPI);
+  }
+
   update(data: any): Observable<any> {
     const urlAPI = this.globals.urlApi + `users/update`;
     return this.http.put<any>(urlAPI, data);

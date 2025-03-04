@@ -13,7 +13,6 @@ import { CreateCategorySpecialtyComponent } from '../modals/create-category-spec
 })
 export class ManagementSpecialtiesComponent implements OnInit {
   isAdmin = false;
-  public submitted = false;
   panelOpenState = false;
 
   categories: any[] = [];

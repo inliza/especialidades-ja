@@ -9,10 +9,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
 import { UsersService } from '../services/users.service';
 import { CommonModule } from '@angular/common';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @Component({
   selector: 'app-signup',
-  imports: [CommonModule, FormsModule, MatInputModule, MatFormFieldModule, MatIconModule, RouterModule, MatSelectModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule],
+  imports: [CommonModule, FormsModule, MatInputModule, MatFormFieldModule, MatIconModule, RouterModule, MatSelectModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule, NgxLoadingModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
@@ -22,6 +23,9 @@ export class SignupComponent implements OnInit {
 
   public zones: any[] = [];
   public ranks: any[] = [];
+
+  isLoading = false;
+
 
   public account: {
     firstName: string,
@@ -68,10 +72,15 @@ export class SignupComponent implements OnInit {
   }
 
   signup() {
+    this.isLoading = true;
     this.userService.signUp(this.account).subscribe((data: any) => {
       console.log(data);
       this.router.navigate(['login']);
-    }, error => { });
+      this.isLoading = false;
+    }, error => { 
+      this.isLoading = false;
+      console.log(error);
+    });
   }
 
 }

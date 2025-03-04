@@ -13,10 +13,11 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import Swal from 'sweetalert2';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @Component({
   selector: 'app-profile',
-  imports: [FormsModule, MatInputModule, MatFormFieldModule, MatIconModule, RouterModule, MatProgressSpinnerModule, MatSelectModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule, CommonModule],
+  imports: [FormsModule, MatInputModule, MatFormFieldModule, MatIconModule, RouterModule, MatProgressSpinnerModule, MatSelectModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule, CommonModule, NgxLoadingModule],
 
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
@@ -27,7 +28,7 @@ export class ProfileComponent implements OnInit {
   public password = "******";
   public zones: any[] = [];
   public ranks: any[] = [];
-
+  public isLoading = false;
   public isEditing = false;
 
 
@@ -76,17 +77,19 @@ export class ProfileComponent implements OnInit {
   }
 
   editFunction() {
+
     if (this.isEditing) {
+      this.isLoading = true;
       let body = this.account;
       if (this.password !== "******") {
-        body = Object.assign(this.account, {password: this.password});
+        body = Object.assign(this.account, { password: this.password });
       }
       this.userService.update(body).subscribe((data: any) => {
         this.toggleEdit();
         Swal.fire('Success', 'Tu usuario ha sido actualizado correctamente.', 'success');
+        this.isLoading = false;
+
       });
-
-
     } else {
       this.toggleEdit();
     }

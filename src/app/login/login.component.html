@@ -1,15 +1,4 @@
-@if(isLoading){
-<div
-  style="
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  "
->
-  <mat-spinner></mat-spinner>
-</div>
-}@else {
+
 <div>
   <div class="d-flex justify-content-center align-items-center min-vh-100">
     <div class="col-12 col-md-6 col-lg-4">
@@ -96,4 +85,6 @@
     </div>
   </div>
 </div>
-}
+
+
+<ngx-loading [show]="isLoading"></ngx-loading>
