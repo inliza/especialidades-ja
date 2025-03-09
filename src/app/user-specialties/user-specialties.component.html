@@ -3,43 +3,53 @@
 </div>
 
 <div class="row">
-    <div class="col d-flex justify-content-end justify-content-sm-center mb-5" style="flex: 1 0 auto;">
-      <button (click)="openModal()" class="btn-create">Actualizar especialidades</button>
-    </div>
+  <div
+    class="col d-flex justify-content-end justify-content-sm-center mb-5"
+    style="flex: 1 0 auto"
+  >
+    <button (click)="openModal()" class="btn-create">
+      Actualizar especialidades
+    </button>
   </div>
+</div>
 
-
-  <mat-accordion class="mt-4" [multi]="true">
-    <mat-expansion-panel
-      *ngFor="let option of grouped; let i = index"
-      (opened)="panelOpenState[i] = true"
+<mat-accordion class="mt-4" [multi]="true">
+  <mat-expansion-panel
+    *ngFor="let option of grouped; let i = index"
+    (opened)="panelOpenState[i] = true"
     (closed)="panelOpenState[i] = false"
-    >
-      <mat-expansion-panel-header>
-        <mat-panel-title>{{ option.name }}</mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="row justify-content-center mt-4">
-        <div class="col-12">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">URL</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of option.specialties; let j = index">
-                <td>{{ item.name }}</td>
-                <td>http://google.com</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{ option.name }}</mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="row justify-content-center mt-4">
+      <div class="col-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of option.specialties; let j = index">
+              <td>{{ item.name }}</td>
+              <td>
+                <a
+                  [href]="item.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >{{ item.url }}</a
+                >
   
-
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
 
 <!-- <div class="row justify-content-center mt-5">
   <div class="col-12">
@@ -59,7 +69,7 @@
     </table>
   </div> -->
 
-  <!-- <div class="col-12 text-center mb-5">
+<!-- <div class="col-12 text-center mb-5">
     <button
       class="btn mt-4 btn-outline-primary w-50"
       mat-button

@@ -3,57 +3,79 @@
 </div>
 
 <div class="row justify-content-center mb-4">
-    <div class="col-md-4">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Filtrar por</mat-label>
-        <mat-select [(value)]="selectedFilter" (ngModelChange)="onFilterChange()">
-          <mat-option *ngFor="let filter of filters" [value]="filter.value">
-            {{ filter.label }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  
-    <div class="col-md-4">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Criterio</mat-label>
-        <input
-          matInput
-          [(ngModel)]="searchCriteria"
-          (ngModelChange)="onSearchChange()"
-          placeholder="Ingrese criterio"
-        />
-        <mat-icon matSuffix class="search-icon">search</mat-icon>
-      </mat-form-field>
-    </div>
+  <div class="col-md-4">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Filtrar por</mat-label>
+      <mat-select [(value)]="selectedFilter" (ngModelChange)="onFilterChange()">
+        <mat-option *ngFor="let filter of filters" [value]="filter.value">
+          {{ filter.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
-  
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col" class="d-none d-md-table-cell">Nombre</th>
-        <th scope="col" class="d-none d-md-table-cell">Apellido</th>
-        <th scope="col" class="d-md-none">Nombre</th>
-        <th scope="col">Zona</th>
-        <th scope="col">Iglesia</th>
-        <th scope="col" class="d-none d-md-table-cell">Rango</th>
-        <th scope="col">Acción</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of filteredUsers; let j = index">
-        <td class="d-none d-md-table-cell">{{ item.firstName }}</td>
-        <td class="d-none d-md-table-cell">{{ item.lastName }}</td>
-        <td class="d-md-none">{{ item.firstName }} {{ item.lastName }}</td>
-        <td>{{ item.zone.name }}</td>
-        <td>{{ item.church }}</td>
-        <td class="d-none d-md-table-cell">{{ item.rank.name }}</td>
-        <td>
-          <button class="btn btn-link text-primary" (click)="viewUser(item.id)">
-            <i class="fa fa-external-link"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  
+
+  <div class="col-md-4">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Criterio</mat-label>
+      <input
+        matInput
+        [(ngModel)]="searchCriteria"
+        (ngModelChange)="onSearchChange()"
+        placeholder="Ingrese criterio"
+      />
+      <mat-icon matSuffix class="search-icon">search</mat-icon>
+    </mat-form-field>
+  </div>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" class="d-none d-md-table-cell">Nombre</th>
+      <th scope="col" class="d-none d-md-table-cell">Apellido</th>
+      <th scope="col" class="d-md-none">Nombre</th>
+      <th scope="col">Zona</th>
+      <th scope="col">Iglesia</th>
+      <th scope="col" class="d-none d-md-table-cell">Rango</th>
+      <th scope="col">Acción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of filteredUsers; let j = index">
+      <td class="d-none d-md-table-cell">{{ item.firstName }}</td>
+      <td class="d-none d-md-table-cell">{{ item.lastName }}</td>
+      <td class="d-md-none">{{ item.firstName }} {{ item.lastName }}</td>
+      <td>{{ item.zone.name }}</td>
+      <td>{{ item.church }}</td>
+      <td class="d-none d-md-table-cell">{{ item.rank.name }}</td>
+      <td>
+        <button
+          matTooltip="Ver perfil del usuario"
+          class="btn btn-link text-primary"
+          (click)="viewUser(item.id)"
+        >
+          <i class="fa fa-external-link"></i>
+        </button>
+        @if(item.isActive && loggedUser?.isAdmin){
+        <button
+          matTooltip="Bloquear usuario"
+          class="btn btn-link text-primary"
+          (click)="blockUnblockUser(item.id, item.firstName, true)"
+        >
+          <i class="fa fa-lock"></i>
+        </button>
+        }@else if(!item.isActive && loggedUser?.isAdmin){
+        <button
+          matTooltip="Desbloquear usuario"
+          class="btn btn-link text-primary"
+          (click)="blockUnblockUser(item.id, item.firstName, false)"
+        >
+          <i class="fa fa-unlock-alt"></i>
+        </button>
+        }
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ngx-loading [show]="isLoading"></ngx-loading>

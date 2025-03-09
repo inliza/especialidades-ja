@@ -3,18 +3,26 @@
 </div>
 
 <div class="row">
-    <div class="col d-flex justify-content-end justify-content-sm-center mb-4" style="flex: 1 0 auto;">
-      <button (click)="openModal(false, true)" class="btn-create">Agregar categoria</button>
-    </div>
+  <div
+    class="col d-flex justify-content-end justify-content-sm-center mb-4"
+    style="flex: 1 0 auto"
+  >
+    <button (click)="openModal(false, true)" class="btn-create">
+      Agregar categoria
+    </button>
   </div>
-  
-  <div class="row">
-    <div class="col d-flex justify-content-end justify-content-sm-center mb-5" style="flex: 1 0 auto;">
-      <button (click)="openModal(false)" class="btn-create">Agregar especialidad</button>
-    </div>
+</div>
+
+<div class="row">
+  <div
+    class="col d-flex justify-content-end justify-content-sm-center mb-5"
+    style="flex: 1 0 auto"
+  >
+    <button (click)="openModal(false)" class="btn-create">
+      Agregar especialidad
+    </button>
   </div>
-  
-  
+</div>
 
 <mat-accordion class="mt-4">
   <mat-expansion-panel
@@ -55,6 +63,7 @@
             <tr>
               <th scope="col">Id</th>
               <th scope="col">Nombre</th>
+              <th scope="col">Url</th>
               <th scope="col">Activa</th>
               <th scope="col" *ngIf="false">Acción</th>
             </tr>
@@ -63,7 +72,15 @@
             <tr *ngFor="let item of option.specialties; let j = index">
               <td>{{ item.id }}</td>
               <td>{{ item.name }}</td>
-              <td>{{ item.active === true ? 'Si' : 'No' }}</td>
+              <td>
+                <a
+                  [href]="item.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >{{ item.url }}</a
+                >
+              </td>
+              <td>{{ item.active === true ? "Si" : "No" }}</td>
               <td *ngIf="false">
                 <button
                   mat-icon-button

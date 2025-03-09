@@ -42,8 +42,6 @@ export class SpecialtiesService {
     const urlAPI = this.globals.urlApi + `specialties/user-specialties/upsert`;
     return this.http.post<any>(urlAPI, body);
   }
-
-
   
 
 }

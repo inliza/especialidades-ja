@@ -6,6 +6,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserSpecialtiesComponent } from './user-specialties/user-specialties.component';
 import { ManagementSpecialtiesComponent } from './management-specialties/management-specialties.component';
 import { UsersComponent } from './users/users.component';
+import { UsersProfileComponent } from './users-profile/users-profile.component';
 
 export const routes: Routes = [
     {
@@ -40,6 +41,10 @@ export const routes: Routes = [
             {
                 path: 'users',
                 component: UsersComponent
+            },
+            {
+                path: 'users/profile/:id',
+                component: UsersProfileComponent
             }
         ]
     }

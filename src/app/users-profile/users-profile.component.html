@@ -1,0 +1,214 @@
+<div class="row justify-content-center mt-4 mb-5">
+  <h3 style="text-align: center" class="title">Perfil de Edwin Lizardo</h3>
+</div>
+
+<div class="d-flex justify-content-center min-vh-100">
+  <div class="col-12 col-md-12 col-lg-10 mt-3">
+    <form
+      id="signup-form"
+      name="signupForm"
+      #signupForm="ngForm"
+      (ngSubmit)="(signupForm.valid)"
+    >
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <!-- Nombre Completo -->
+              <mat-form-field
+                class="example-full-width mt-3"
+                appearance="outline"
+              >
+                <mat-label>Nombre</mat-label>
+                <input
+                  matInput
+                  required
+                  type="text"
+                  name="fullName"
+                  #fullName="ngModel"
+                  [(ngModel)]="account.firstName"
+                  disabled
+                />
+                <mat-icon matSuffix>person</mat-icon>
+              </mat-form-field>
+
+              <!-- Apellido -->
+              <mat-form-field
+                class="example-full-width mt-2"
+                appearance="outline"
+              >
+                <mat-label>Apellido</mat-label>
+                <input
+                  matInput
+                  required
+                  type="text"
+                  name="lastname"
+                  #lastname="ngModel"
+                  [(ngModel)]="account.lastName"
+                  disabled
+                />
+                <mat-icon matSuffix>badge</mat-icon>
+              </mat-form-field>
+
+              <!-- Fecha de Nacimiento -->
+              <mat-form-field
+                class="example-full-width mt-2"
+                appearance="outline"
+              >
+                <mat-label>Fecha de Nacimiento</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  required
+                  name="birthDate"
+                  [(ngModel)]="account.birthDate"
+                  disabled
+                />
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+
+              <!-- Iglesia -->
+              <mat-form-field
+                class="example-full-width mt-2"
+                appearance="outline"
+              >
+                <mat-label>Iglesia</mat-label>
+                <input
+                  matInput
+                  required
+                  type="text"
+                  name="church"
+                  #church="ngModel"
+                  [(ngModel)]="account.church"
+                  disabled
+                />
+                <mat-icon matSuffix>church</mat-icon>
+              </mat-form-field>
+
+              <!-- Alias -->
+              <mat-form-field
+                class="example-full-width mt-3"
+                appearance="outline"
+              >
+                <mat-label>Alias</mat-label>
+                <input
+                  matInput
+                  required
+                  type="text"
+                  name="alias"
+                  #alias="ngModel"
+                  [(ngModel)]="account.alias"
+                  disabled
+                />
+                <mat-icon matSuffix>face</mat-icon>
+              </mat-form-field>
+
+              <!-- Teléfono -->
+              <mat-form-field
+                class="example-full-width mt-2"
+                appearance="outline"
+              >
+                <mat-label>Teléfono</mat-label>
+                <input
+                  matInput
+                  required
+                  type="tel"
+                  name="phone"
+                  #phone="ngModel"
+                  [(ngModel)]="account.phone"
+                  maxlength="12"
+                  minlength="10"
+                  disabled
+                />
+                <mat-icon matSuffix>phone</mat-icon>
+              </mat-form-field>
+
+              <!-- Zona -->
+              <mat-form-field
+                class="example-full-width mt-2"
+                appearance="outline"
+              >
+                <mat-label>Zona</mat-label>
+                <input
+                  matInput
+                  required
+                  type="text"
+                  name="zone"
+                  #zone="ngModel"
+                  [(ngModel)]="account.zoneId"
+                  disabled
+                />
+                <mat-icon matSuffix>phone</mat-icon>
+              </mat-form-field>
+
+              <!-- Rango -->
+
+              <mat-form-field
+                class="example-full-width mt-2"
+                appearance="outline"
+              >
+                <mat-label>Rango</mat-label>
+                <input
+                  matInput
+                  required
+                  type="text"
+                  name="rank"
+                  #rank="ngModel"
+                  [(ngModel)]="account.rankId"
+                  disabled
+                />
+                <mat-icon matSuffix>phone</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12 col-md-6 mt-3">
+                <mat-accordion [multi]="true">
+                    <mat-expansion-panel
+                      *ngFor="let option of grouped; let i = index"
+                      (opened)="panelOpenState[i] = true"
+                    (closed)="panelOpenState[i] = false"
+                    >
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>{{ option.name }}</mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div class="row justify-content-center mt-4">
+                        <div class="col-12">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">URL</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let item of option.specialties; let j = index">
+                                <td>{{ item.name }}</td>
+                                <td>
+                                    <a
+                                      [href]="item.url"
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      >{{ item.url }}</a
+                                    >
+                      
+                                  </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ngx-loading [show]="isLoading"></ngx-loading>

@@ -8,6 +8,8 @@ import { UsersService } from '../services/users.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthService } from '../services/auth.service';
 import { NgxLoadingModule } from 'ngx-loading';
+import { ToastService } from '../services/toast.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -21,10 +23,11 @@ export class LoginComponent implements OnInit {
   isLoading = false;
 
   constructor(
-    private service: UsersService, 
+    private service: UsersService,
     private auth: AuthService,
     private router: Router,
-    
+    private readonly toast: ToastService,
+
   ) { }
 
   ngOnInit(): void {
@@ -40,9 +43,13 @@ export class LoginComponent implements OnInit {
       this.auth.setLoginValue();
       this.router.navigate(['home/profile']);
       this.isLoading = false;
-    }, error =>{
+    }, error => {
       this.isLoading = false;
-      console.log(error);
+      Swal.fire({
+        icon: 'info',
+        title: 'Notificación',
+        text: error.error.message,
+      });
     });
 
   }

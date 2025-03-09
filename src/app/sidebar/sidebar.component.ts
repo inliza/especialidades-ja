@@ -20,14 +20,14 @@ import { MatIconModule } from '@angular/material/icon';
 export class SidebarComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: MatSidenav;
   isSmallScreen: boolean = false;
-
+  isAdmin: boolean = false;
   showSidenav: boolean = true;
   dropdownOpen: boolean = false;
   public options: any[] = [
     { route: '/home/profile', title: 'Perfil', icon: 'person' },
-    { route: '/home/management-specialties', title: 'Especialidades', icon: 'library_books' },
+    { route: '/home/management-specialties', title: 'Especialidades', icon: 'library_books', admin: true },
     { route: '/home/user-specialties', title: 'Mis especialidades', icon: 'work' },
-    { route: '/home/users', title: 'Usuarios', icon: 'people' },
+    { route: '/home/users', title: 'Usuarios', icon: 'people',  },
   ];
 
   constructor(
@@ -40,6 +40,12 @@ export class SidebarComponent implements OnInit {
       .subscribe(result => {
         this.isSmallScreen = result.matches;
       });
+
+    this.auth.loggedUser$.subscribe((data: any) => {
+      if (data) {
+        this.isAdmin = data.isAdmin;
+      }
+    });
   }
 
 

@@ -47,5 +47,14 @@ export class UsersService {
     return this.http.put<any>(urlAPI, data);
   }
 
+  updateStatus(data: any): Observable<any> {
+    const urlAPI = this.globals.urlApi + `users/update-status`;
+    return this.http.put<any>(urlAPI, data);
+  }
+
+  getSpecialtiesByUser(id:string): Observable<any> {
+    const urlAPI = this.globals.urlApi + `users/profile/${id}`;
+    return this.http.get<any>(urlAPI);
+  }
 
 }

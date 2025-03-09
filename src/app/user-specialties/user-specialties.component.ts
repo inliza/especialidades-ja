@@ -92,6 +92,7 @@ groupByCategory(data: any[]) {
       acc[categoryId].specialties.push({
         id: item.id,
         name: item.name,
+        url: item.url,
         active: item.active,
       });
 

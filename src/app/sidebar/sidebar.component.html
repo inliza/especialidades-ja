@@ -3,7 +3,7 @@
     <mat-sidenav #sidenav mode="side" [opened]="showSidenav" class="custom-sidenav">
       <mat-nav-list>
         <ng-container *ngFor="let option of options">
-          <a mat-list-item [routerLink]="option.route">
+          <a *ngIf="!option.admin || (option.admin && isAdmin)"  mat-list-item [routerLink]="option.route">
             <mat-icon class="nav-icon">{{ option.icon }}</mat-icon>
             <span class="nav-caption" *ngIf="!isSmallScreen">{{ option.title }}</span>
           </a>
