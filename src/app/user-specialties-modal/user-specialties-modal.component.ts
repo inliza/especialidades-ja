@@ -10,6 +10,7 @@ import { SpecialtiesService } from '../services/specialties.service';
 import { ToastService } from '../services/toast.service';
 import Swal from 'sweetalert2';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-user-specialties-modal',
@@ -32,6 +33,8 @@ export class UserSpecialtiesModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private service: SpecialtiesService,
     private readonly toast: ToastService,
+    private spinner: NgxSpinnerService
+
   ) { }
 
 
@@ -85,12 +88,10 @@ export class UserSpecialtiesModalComponent implements OnInit {
 
     this.service.upsertUserSpecialties(body).subscribe((data: any) => {
       this.toast.showToast('success', 'Datos guardados');
-      this.isLoading = false;
-      this.closeDialog('Ok');
+      this.spinner.hide(); this.closeDialog('Ok');
     }, error => {
       console.log(error);
-      this.isLoading = false;
-      Swal.fire({
+      this.spinner.hide(); Swal.fire({
         icon: 'error',
         title: 'Opps',
         text: error.error.message,

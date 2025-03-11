@@ -53,6 +53,7 @@
                   #password="ngModel"
                   [(ngModel)]="clave"
                   required
+                  minlength="6"
                 />
                 <mat-icon matSuffix>lock</mat-icon>
                 @if (password.errors?.['required']) {
@@ -87,4 +88,11 @@
 </div>
 
 
-<ngx-loading [show]="isLoading"></ngx-loading>
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <img src="assets/images/loading.gif" alt="Cargando..." style="width: 100px; height: auto;" />
+</ngx-spinner>

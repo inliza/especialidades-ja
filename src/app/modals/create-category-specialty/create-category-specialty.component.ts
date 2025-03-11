@@ -8,11 +8,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { SpecialtiesService } from '../../services/specialties.service';
 import Swal from 'sweetalert2';
 import { ToastService } from '../../services/toast.service';
-import { NgxLoadingModule } from 'ngx-loading';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-create-category-specialty',
-  imports: [FormsModule, MatInputModule, MatFormFieldModule, MatSelectModule, ReactiveFormsModule, CommonModule, NgxLoadingModule],
+  imports: [FormsModule, MatInputModule, MatFormFieldModule, MatSelectModule, ReactiveFormsModule, CommonModule, NgxSpinnerModule],
   templateUrl: './create-category-specialty.component.html',
   styleUrl: './create-category-specialty.component.css'
 })
@@ -31,6 +31,8 @@ export class CreateCategorySpecialtyComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private service: SpecialtiesService,
     private readonly toast: ToastService,
+    private spinner: NgxSpinnerService
+
   ) { }
 
   ngOnInit(): void {
@@ -46,17 +48,14 @@ export class CreateCategorySpecialtyComponent implements OnInit {
   }
 
   createOrUpdate() {
-    this.isLoading = true;
-    if (!this.isEditing) {
+    this.spinner.show(); if (!this.isEditing) {
       if (this.isCategory) {
         this.service.createCategory({ name: this.name }).subscribe((data: any) => {
           this.toast.showToast('success', 'Datos guardados');
           this.closeDialog('Ok');
-          this.isLoading = false;
-
+          this.spinner.hide();
         }, error => {
-          this.isLoading = false;
-          Swal.fire({
+          this.spinner.hide(); Swal.fire({
             icon: 'error',
             title: 'Opps',
             text: error.error.message,
@@ -66,11 +65,9 @@ export class CreateCategorySpecialtyComponent implements OnInit {
         this.service.createSpeciality({ name: this.name, id_category: this.selectCategories.value }).subscribe((data: any) => {
           this.toast.showToast('success', 'Datos guardados');
           this.closeDialog('Ok');
-          this.isLoading = false;
-
+          this.spinner.hide();
         }, error => {
-          this.isLoading = false;
-          Swal.fire({
+          this.spinner.hide(); Swal.fire({
             icon: 'error',
             title: 'Opps',
             text: error.error.message,

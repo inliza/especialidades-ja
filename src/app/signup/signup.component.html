@@ -6,7 +6,9 @@
         id="signup-form"
         name="signupForm"
         #signupForm="ngForm"
-        (ngSubmit)="(signupForm.valid && selectZones.valid && selectRanks.valid) && signup()"
+        (ngSubmit)="
+          signupForm.valid && selectZones.valid && selectRanks.valid && signup()
+        "
       >
         <div class="row justify-content-center">
           <div class="col-12">
@@ -56,7 +58,10 @@
                 </mat-form-field>
 
                 <!-- Fecha de Nacimiento -->
-                <mat-form-field class="example-full-width mt-2" appearance="outline">
+                <mat-form-field
+                  class="example-full-width mt-2"
+                  appearance="outline"
+                >
                   <mat-label>Fecha de Nacimiento</mat-label>
                   <input
                     matInput
@@ -65,12 +70,16 @@
                     name="birthDate"
                     [(ngModel)]="account.birthDate"
                   />
-                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker-toggle
+                    matIconSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
-                
-                  <mat-error *ngIf="!account.birthDate">Este campo es obligatorio</mat-error>
+
+                  <mat-error *ngIf="!account.birthDate"
+                    >Este campo es obligatorio</mat-error
+                  >
                 </mat-form-field>
-                
 
                 <!-- Iglesia -->
                 <mat-form-field
@@ -187,25 +196,25 @@
 
                 <!-- Rango -->
                 <mat-form-field
-                class="example-full-width mt-2"
-                appearance="outline"
-              >
-                <mat-select
-                  placeholder="Rango"
-                  name="rank"
-                  required
-                  [(ngModel)]="account.rankId"
-                  [formControl]="selectRanks"
-                  required
+                  class="example-full-width mt-2"
+                  appearance="outline"
                 >
-                  <mat-option *ngFor="let m of ranks" [value]="m?.id">
-                    {{ m?.name | titlecase }}
-                  </mat-option>
-                </mat-select>
-                <mat-error *ngIf="selectRanks.errors?.['required']">
-                  Este campo es obligatorio
-                </mat-error>
-              </mat-form-field>
+                  <mat-select
+                    placeholder="Rango"
+                    name="rank"
+                    required
+                    [(ngModel)]="account.rankId"
+                    [formControl]="selectRanks"
+                    required
+                  >
+                    <mat-option *ngFor="let m of ranks" [value]="m?.id">
+                      {{ m?.name | titlecase }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="selectRanks.errors?.['required']">
+                    Este campo es obligatorio
+                  </mat-error>
+                </mat-form-field>
 
                 <!-- Contraseña -->
                 <mat-form-field
@@ -219,6 +228,7 @@
                     type="password"
                     name="password"
                     #password="ngModel"
+                    minlength="6"
                     [(ngModel)]="account.password"
                   />
                   <mat-icon matSuffix>lock</mat-icon>
@@ -256,4 +266,15 @@
   </div>
 </div>
 
-<ngx-loading [show]="isLoading"></ngx-loading>
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <img
+    src="assets/images/loading.gif"
+    alt="Cargando..."
+    style="width: 100px; height: auto"
+  />
+</ngx-spinner>

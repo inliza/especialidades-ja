@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { UsersService } from '../services/users.service';
 import { Router } from '@angular/router';
-import { NgxLoadingModule } from 'ngx-loading';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import Swal from 'sweetalert2';
@@ -15,7 +15,7 @@ import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-users',
-  imports: [CommonModule, FormsModule, MatSelectModule, MatInputModule, MatIconModule, NgxLoadingModule, MatButtonModule, MatTooltipModule],
+  imports: [CommonModule, FormsModule, MatSelectModule, MatInputModule, MatIconModule, NgxSpinnerModule, MatButtonModule, MatTooltipModule],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
@@ -26,19 +26,19 @@ export class UsersComponent implements OnInit {
   loggedUser: any;
 
   ngOnInit(): void {
-    this.isLoading = true;
-    this._userService.getAll().subscribe((data) => {
+    this.spinner.show(); this._userService.getAll().subscribe((data) => {
       this.users = data;
       this.filteredUsers = data;
-      this.isLoading = false;
+      this.spinner.hide();
     }, err => {
-      this.isLoading = false;
+      this.spinner.hide();
     });
 
     this.auth.loggedUser$.subscribe((data: any) => {
       if (data) {
         this.loggedUser = data;
-      }});
+      }
+    });
   }
 
   constructor(
@@ -46,6 +46,7 @@ export class UsersComponent implements OnInit {
     private router: Router,
     private readonly toast: ToastService,
     private auth: AuthService,
+    private spinner: NgxSpinnerService
 
   ) { }
 
@@ -103,14 +104,11 @@ export class UsersComponent implements OnInit {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.isLoading = true;
-        this._userService.updateStatus({ userId: id, active: !block }).subscribe((data: any) => {
-          this.isLoading = false;
-          this.toast.showToast('success', `Usuario ${block ? 'bloqueado' : 'desbloqueado'} correctamente.`);
+        this.spinner.show(); this._userService.updateStatus({ userId: id, active: !block }).subscribe((data: any) => {
+          this.spinner.hide(); this.toast.showToast('success', `Usuario ${block ? 'bloqueado' : 'desbloqueado'} correctamente.`);
           this.ngOnInit();
         }, (err: any) => {
-          this.isLoading = false;
-          Swal.fire({
+          this.spinner.hide(); Swal.fire({
             icon: 'error',
             title: 'Opps',
             text: err.error.message,

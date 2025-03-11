@@ -10,19 +10,17 @@ import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import Swal from 'sweetalert2';
-import { NgxLoadingModule } from 'ngx-loading';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 @Component({
   selector: 'app-users-profile',
-  imports: [FormsModule, MatInputModule, MatFormFieldModule, MatIconModule, RouterModule, MatProgressSpinnerModule, MatSelectModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule, CommonModule, NgxLoadingModule, MatExpansionModule],
+  imports: [FormsModule, MatInputModule, MatFormFieldModule, MatIconModule, RouterModule, MatProgressSpinnerModule, MatSelectModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule, CommonModule, NgxSpinnerModule, MatExpansionModule],
   templateUrl: './users-profile.component.html',
   styleUrl: './users-profile.component.css'
 })
 export class UsersProfileComponent implements OnInit {
   grouped: any[] = [];
   panelOpenState: boolean[] = [];
-  isLoading = false;
 
   public account: {
     firstName: string,
@@ -39,7 +37,7 @@ export class UsersProfileComponent implements OnInit {
     private service: UsersService,
     private route: ActivatedRoute,
     private router: Router,
-
+    private spinner: NgxSpinnerService
   ) {
     this.account = {
       firstName: "",
@@ -57,13 +55,13 @@ export class UsersProfileComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id') || '';
     if (id) {
-      this.isLoading = true;
+      this.spinner.show();
       this.service.getSpecialtiesByUser(id).subscribe((data: any) => {
         this.account = data;
         this.grouped = this.groupByCategory(data.specialties);
-        this.isLoading = false;
+        this.spinner.hide();
       }, error => {
-        this.isLoading = false;
+        this.spinner.hide();
 
       });
     } else {

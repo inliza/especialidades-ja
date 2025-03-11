@@ -11,12 +11,12 @@ import { CommonModule } from '@angular/common';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import Swal from 'sweetalert2';
-import { NgxLoadingModule } from 'ngx-loading';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-profile',
-  imports: [FormsModule, MatInputModule, MatFormFieldModule, MatIconModule, RouterModule, MatProgressSpinnerModule, MatSelectModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule, CommonModule, NgxLoadingModule],
+  imports: [FormsModule, MatInputModule, MatFormFieldModule, MatIconModule, RouterModule, MatProgressSpinnerModule, MatSelectModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule, CommonModule, NgxSpinnerModule],
 
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
@@ -45,7 +45,9 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private userService: UsersService,
-    private auth: AuthService
+    private auth: AuthService,
+    private spinner: NgxSpinnerService
+
   ) {
     this.account = {
       firstName: "",
@@ -78,16 +80,14 @@ export class ProfileComponent implements OnInit {
   editFunction() {
 
     if (this.isEditing) {
-      this.isLoading = true;
-      let body = this.account;
+      this.spinner.show(); let body = this.account;
       if (this.password !== "******") {
         body = Object.assign(this.account, { password: this.password });
       }
       this.userService.update(body).subscribe((data: any) => {
         this.toggleEdit();
         Swal.fire('Success', 'Tu usuario ha sido actualizado correctamente.', 'success');
-        this.isLoading = false;
-
+        this.spinner.hide();
       });
     } else {
       this.toggleEdit();
@@ -105,12 +105,12 @@ export class ProfileComponent implements OnInit {
 
 
     this.auth.loggedUser$.subscribe((data: any) => {
-      if(data){
+      if (data) {
         this.account = data;
         this.account.rankId = data?.rank?.id;
         this.account.zoneId = data?.zone?.id;
       }
-     
+
     });
   }
 

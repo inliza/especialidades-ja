@@ -9,11 +9,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
 import { UsersService } from '../services/users.service';
 import { CommonModule } from '@angular/common';
-import { NgxLoadingModule } from 'ngx-loading';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-signup',
-  imports: [CommonModule, FormsModule, MatInputModule, MatFormFieldModule, MatIconModule, RouterModule, MatSelectModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule, NgxLoadingModule],
+  imports: [CommonModule, FormsModule, MatInputModule, MatFormFieldModule, MatIconModule, RouterModule, MatSelectModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule, NgxSpinnerModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
@@ -43,6 +43,7 @@ export class SignupComponent implements OnInit {
   constructor(
     private userService: UsersService,
     private router: Router,
+    private spinner: NgxSpinnerService
 
   ) {
     this.account = {
@@ -72,14 +73,11 @@ export class SignupComponent implements OnInit {
   }
 
   signup() {
-    this.isLoading = true;
-    this.userService.signUp(this.account).subscribe((data: any) => {
+    this.spinner.show();    this.userService.signUp(this.account).subscribe((data: any) => {
       console.log(data);
       this.router.navigate(['login']);
-      this.isLoading = false;
-    }, error => { 
-      this.isLoading = false;
-      console.log(error);
+      this.spinner.hide();    }, error => { 
+      this.spinner.hide();      console.log(error);
     });
   }
 
