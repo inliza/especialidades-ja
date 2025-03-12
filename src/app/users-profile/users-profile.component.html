@@ -1,5 +1,7 @@
-<div class="row justify-content-center mt-4 mb-5">
-  <h3 style="text-align: center" class="title">Perfil de Edwin Lizardo</h3>
+<div class="row justify-content-center mt-4 mb-3">
+  <h3 style="text-align: center" class="title">
+    Perfil de {{ account.firstName + " " + account.lastName }}
+  </h3>
 </div>
 
 <div class="d-flex justify-content-center min-vh-100">
@@ -166,43 +168,47 @@
             </div>
 
             <div class="col-12 col-md-6 mt-3">
-                <mat-accordion [multi]="true">
-                    <mat-expansion-panel
-                      *ngFor="let option of grouped; let i = index"
-                      (opened)="panelOpenState[i] = true"
-                    (closed)="panelOpenState[i] = false"
-                    >
-                      <mat-expansion-panel-header>
-                        <mat-panel-title>{{ option.name }}</mat-panel-title>
-                      </mat-expansion-panel-header>
-                      <div class="row justify-content-center mt-4">
-                        <div class="col-12">
-                          <table class="table">
-                            <thead>
-                              <tr>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">URL</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr *ngFor="let item of option.specialties; let j = index">
-                                <td>{{ item.name }}</td>
-                                <td>
-                                    <a
-                                      [href]="item.url"
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      >{{ item.url }}</a
-                                    >
-                      
-                                  </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </mat-expansion-panel>
-                  </mat-accordion>
+              <mat-accordion [multi]="true">
+                <mat-expansion-panel
+                  *ngFor="let option of grouped; let i = index"
+                  (opened)="panelOpenState[i] = true"
+                  (closed)="panelOpenState[i] = false"
+                >
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>{{ option.name }}</mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="row justify-content-center mt-4">
+                    <div class="col-12">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Nombre</th>
+                            <!-- <th scope="col">URL</th> -->
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr
+                            *ngFor="
+                              let item of option.specialties;
+                              let j = index
+                            "
+                          >
+                            <td>{{ item.name }}</td>
+                            <!-- <td>
+                              <a
+                                [href]="item.url"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >{{ item.url }}</a
+                              >
+                            </td> -->
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
             </div>
           </div>
         </div>
@@ -217,5 +223,9 @@
   color="#fff"
   type="ball-scale-multiple"
 >
-  <img src="assets/images/loading.gif" alt="Cargando..." style="width: 100px; height: auto;" />
+  <img
+    src="assets/images/loading.gif"
+    alt="Cargando..."
+    style="width: 100px; height: auto"
+  />
 </ngx-spinner>
