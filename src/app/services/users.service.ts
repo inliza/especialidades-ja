@@ -32,6 +32,16 @@ export class UsersService {
     return this.http.get<any>(urlAPI);
   }
 
+  getChurchs(): Observable<any> {
+    const urlAPI = this.globals.urlApi + `users/churchs`;
+    return this.http.get<any>(urlAPI);
+  }
+
+  getChurchsByZone(id: number): Observable<any> {
+    const urlAPI = this.globals.urlApi + `users/churchs/get-by-zone/${id}`;
+    return this.http.get<any>(urlAPI);
+  }
+
   getLogged(): Observable<any> {
     const urlAPI = this.globals.urlApi + `users/profile`;
     return this.http.get<any>(urlAPI);

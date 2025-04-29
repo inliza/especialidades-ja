@@ -5,6 +5,6 @@ export class Globals {
         Produccion: "Inserta la url de prod aqui",
         API: `http://localhost:3555/api/`,
     };
-    public urlApi = this.a["PruebasRemote"];
+    public urlApi = this.a["API"];
 
 }

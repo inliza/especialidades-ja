@@ -49,29 +49,41 @@
                   [(ngModel)]="account.lastName"
                   disabled
                 />
-                <mat-icon matSuffix>badge</mat-icon>
+                <mat-icon matSuffix>account_circle</mat-icon>
               </mat-form-field>
 
+                     <!-- Segundo Apellido -->
+                     <mat-form-field
+                     class="example-full-width mt-2"
+                     appearance="outline"
+                   >
+                     <mat-label>Segundo Apellido</mat-label>
+                     <input
+                       matInput
+                       required
+                       type="text"
+                       name="secondlastname"
+                       #secondlastname="ngModel"
+                       [(ngModel)]="account.secondLastName"
+                       disabled
+                     />
+                     <mat-icon matSuffix>badge</mat-icon>
+   
+                     @if (secondlastname.invalid && secondlastname.touched) {
+                     <mat-error>Este campo es obligatorio</mat-error>
+                     }
+                   </mat-form-field>
+
               <!-- Fecha de Nacimiento -->
-              <mat-form-field
-                class="example-full-width mt-2"
-                appearance="outline"
-              >
-                <mat-label>Fecha de Nacimiento</mat-label>
+              <mat-form-field class="example-full-width mt-2" appearance="outline">
+                <mat-label>Edad</mat-label>
                 <input
                   matInput
-                  [matDatepicker]="picker"
-                  required
-                  name="birthDate"
-                  [(ngModel)]="account.birthDate"
+                  [value]="isAdult(account.birthDate) ? '18+' : 'Menor de edad'"
                   disabled
                 />
-                <mat-datepicker-toggle
-                  matIconSuffix
-                  [for]="picker"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
+              
 
               <!-- Iglesia -->
               <mat-form-field
@@ -141,7 +153,7 @@
                   type="text"
                   name="zone"
                   #zone="ngModel"
-                  [(ngModel)]="account.zoneId"
+                  [(ngModel)]="account.zone.name"
                   disabled
                 />
                 <mat-icon matSuffix>phone</mat-icon>
@@ -160,7 +172,7 @@
                   type="text"
                   name="rank"
                   #rank="ngModel"
-                  [(ngModel)]="account.rankId"
+                  [(ngModel)]="account.rank.name"
                   disabled
                 />
                 <mat-icon matSuffix>phone</mat-icon>

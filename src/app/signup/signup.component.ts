@@ -10,6 +10,7 @@ import { Router, RouterModule } from '@angular/router';
 import { UsersService } from '../services/users.service';
 import { CommonModule } from '@angular/common';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-signup',
@@ -20,9 +21,11 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 export class SignupComponent implements OnInit {
   public selectZones = new FormControl('', [Validators.required]);
   public selectRanks = new FormControl('', [Validators.required]);
+  public selectChurchs = new FormControl('', [Validators.required]);
 
   public zones: any[] = [];
   public ranks: any[] = [];
+  public churchs: any[] = [];
 
   isLoading = false;
 
@@ -30,13 +33,14 @@ export class SignupComponent implements OnInit {
   public account: {
     firstName: string,
     lastName: string,
+    secondLastName: string,
     alias: string,
     birthDate: Date,
     email: string,
     password: string,
     phone: string,
     zoneId: string,
-    church: string,
+    churchId: string,
     rankId: string
   }
 
@@ -49,13 +53,14 @@ export class SignupComponent implements OnInit {
     this.account = {
       firstName: "",
       lastName: "",
+      secondLastName: "",
       alias: "",
       birthDate: new Date(),
       email: "",
       password: "",
       phone: "",
       zoneId: "",
-      church: "",
+      churchId: "",
       rankId: ""
     }
 
@@ -68,16 +73,30 @@ export class SignupComponent implements OnInit {
     });
     this.userService.getRanks().subscribe((data: any) => {
       this.ranks = data;
-    }
-    );
+    });
+  }
+
+  getChurchsByZone(zoneId: number) {
+    this.userService.getChurchsByZone(zoneId).subscribe((data: any) => {
+      this.churchs = data;
+    });
   }
 
   signup() {
-    this.spinner.show();    this.userService.signUp(this.account).subscribe((data: any) => {
-      console.log(data);
-      this.router.navigate(['login']);
-      this.spinner.hide();    }, error => { 
-      this.spinner.hide();      console.log(error);
+    this.spinner.show(); this.userService.signUp(this.account).subscribe((data: any) => {
+      Swal.fire({
+        icon: 'info',
+        title: 'Notificación',
+        text: 'Usuario creado correctamente, por favor inicie sesión',
+      }); this.router.navigate(['login']);
+      this.spinner.hide();
+    }, error => {
+      this.spinner.hide(); console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Opps',
+        text: error.error.message,
+      });
     });
   }
 

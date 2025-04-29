@@ -36,12 +36,12 @@
                   }
                 </mat-form-field>
 
-                <!-- Apellido -->
+                <!-- Primer Apellido -->
                 <mat-form-field
                   class="example-full-width mt-2"
                   appearance="outline"
                 >
-                  <mat-label>Apellido</mat-label>
+                  <mat-label>Primer Apellido</mat-label>
                   <input
                     matInput
                     required
@@ -50,56 +50,81 @@
                     #lastname="ngModel"
                     [(ngModel)]="account.lastName"
                   />
-                  <mat-icon matSuffix>badge</mat-icon>
+                  <mat-icon matSuffix>account_circle</mat-icon>
 
                   @if (lastname.invalid && lastname.touched) {
                   <mat-error>Este campo es obligatorio</mat-error>
                   }
                 </mat-form-field>
 
-                <!-- Fecha de Nacimiento -->
+                <!-- Segundo Apellido -->
                 <mat-form-field
                   class="example-full-width mt-2"
                   appearance="outline"
                 >
-                  <mat-label>Fecha de Nacimiento</mat-label>
+                  <mat-label>Segundo Apellido</mat-label>
                   <input
                     matInput
-                    [matDatepicker]="picker"
                     required
-                    name="birthDate"
-                    [(ngModel)]="account.birthDate"
+                    type="text"
+                    name="secondlastname"
+                    #secondlastname="ngModel"
+                    [(ngModel)]="account.secondLastName"
                   />
-                  <mat-datepicker-toggle
-                    matIconSuffix
-                    [for]="picker"
-                  ></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-icon matSuffix>badge</mat-icon>
 
-                  <mat-error *ngIf="!account.birthDate"
-                    >Este campo es obligatorio</mat-error
+                  @if (secondlastname.invalid && secondlastname.touched) {
+                  <mat-error>Este campo es obligatorio</mat-error>
+                  }
+                </mat-form-field>
+
+                <!-- Zona -->
+                <mat-form-field
+                  class="example-full-width mt-2"
+                  appearance="outline"
+                >
+                  <mat-select
+                    placeholder="Zona"
+                    name="zone"
+                    required
+                    [(ngModel)]="account.zoneId"
+                    [formControl]="selectZones"
+                    required
+                    (selectionChange)="getChurchsByZone($event.value)"
                   >
+                    <mat-option *ngFor="let m of zones" [value]="m?.id">
+                      {{ m?.name | titlecase }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="selectZones.errors?.['required']">
+                    Este campo es obligatorio
+                  </mat-error>
                 </mat-form-field>
 
                 <!-- Iglesia -->
                 <mat-form-field
                   class="example-full-width mt-2"
                   appearance="outline"
-                >
-                  <mat-label>Iglesia</mat-label>
-                  <input
-                    matInput
-                    required
-                    type="text"
-                    name="church"
-                    #church="ngModel"
-                    [(ngModel)]="account.church"
-                  />
-                  <mat-icon matSuffix>church</mat-icon>
+                  [ngClass]="{ 'disabled-field': !account.zoneId }"
 
-                  @if (church.invalid && church.touched) {
-                  <mat-error>Este campo es obligatorio</mat-error>
-                  }
+                >
+                  <mat-select
+                    placeholder="Iglesia"
+                    name="church"
+                    required
+                    [(ngModel)]="account.churchId"
+                    [formControl]="selectChurchs"
+                    required
+                    [disabled]="!account.zoneId"
+
+                  >
+                    <mat-option *ngFor="let m of churchs" [value]="m?.id">
+                      {{ m?.name | titlecase }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="selectChurchs.errors?.['required']">
+                    Este campo es obligatorio
+                  </mat-error>
                 </mat-form-field>
 
                 <!-- Correo -->
@@ -135,17 +160,12 @@
                   <mat-label>Alias</mat-label>
                   <input
                     matInput
-                    required
                     type="text"
                     name="alias"
                     #alias="ngModel"
                     [(ngModel)]="account.alias"
                   />
                   <mat-icon matSuffix>face</mat-icon>
-
-                  @if (alias.invalid && alias.touched) {
-                  <mat-error>Este campo es obligatorio</mat-error>
-                  }
                 </mat-form-field>
 
                 <!-- Teléfono -->
@@ -171,29 +191,29 @@
                   }
                 </mat-form-field>
 
-                <!-- Zona -->
-
+                <!-- Fecha de Nacimiento -->
                 <mat-form-field
                   class="example-full-width mt-2"
                   appearance="outline"
                 >
-                  <mat-select
-                    placeholder="Zona"
-                    name="zone"
+                  <mat-label>Fecha de Nacimiento</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="picker"
                     required
-                    [(ngModel)]="account.zoneId"
-                    [formControl]="selectZones"
-                    required
-                  >
-                    <mat-option *ngFor="let m of zones" [value]="m?.id">
-                      {{ m?.name | titlecase }}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="selectZones.errors?.['required']">
-                    Este campo es obligatorio
-                  </mat-error>
-                </mat-form-field>
+                    name="birthDate"
+                    [(ngModel)]="account.birthDate"
+                  />
+                  <mat-datepicker-toggle
+                    matIconSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
 
+                  <mat-error *ngIf="!account.birthDate"
+                    >Este campo es obligatorio</mat-error
+                  >
+                </mat-form-field>
                 <!-- Rango -->
                 <mat-form-field
                   class="example-full-width mt-2"
@@ -221,7 +241,6 @@
                   class="example-full-width mt-2"
                   appearance="outline"
                 >
-                
                   <mat-label>Contraseña</mat-label>
                   <input
                     matInput

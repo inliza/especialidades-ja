@@ -24,9 +24,11 @@ import { AuthService } from '../services/auth.service';
 export class ProfileComponent implements OnInit {
   public selectZones = new FormControl('', [Validators.required]);
   public selectRanks = new FormControl('', [Validators.required]);
+  public selectChurchs = new FormControl('', [Validators.required]);
   public password = "******";
   public zones: any[] = [];
   public ranks: any[] = [];
+  public churchs: any[] = [];
   public isLoading = false;
   public isEditing = false;
 
@@ -34,12 +36,13 @@ export class ProfileComponent implements OnInit {
   public account: {
     firstName: string,
     lastName: string,
+    secondLastName: string,
     alias: string,
     birthDate: Date,
     email: string,
     phone: string,
     zoneId: string,
-    church: string,
+    churchId: string,
     rankId: string
   }
 
@@ -52,17 +55,19 @@ export class ProfileComponent implements OnInit {
     this.account = {
       firstName: "",
       lastName: "",
+      secondLastName: "",
       alias: "",
       birthDate: new Date(),
       email: "",
       phone: "",
       zoneId: "",
-      church: "",
+      churchId: "",
       rankId: ""
     }
 
     this.selectRanks.disable();
     this.selectZones.disable();
+    this.selectChurchs.disable();
 
   }
 
@@ -71,9 +76,12 @@ export class ProfileComponent implements OnInit {
     if (this.isEditing) {
       this.selectRanks.enable();
       this.selectZones.enable();
+      this.selectChurchs.enable();
+
     } else {
       this.selectRanks.disable();
       this.selectZones.disable();
+      this.selectChurchs.disable();
     }
   }
 
@@ -88,10 +96,23 @@ export class ProfileComponent implements OnInit {
         this.toggleEdit();
         Swal.fire('Success', 'Tu usuario ha sido actualizado correctamente.', 'success');
         this.spinner.hide();
+      }, error => {
+        this.spinner.hide();
+        Swal.fire({
+          icon: 'error',
+          title: 'Opps',
+          text: error.error.message,
+        });
       });
     } else {
       this.toggleEdit();
     }
+  }
+
+  getChurchsByZone(zoneId: number) {
+    this.userService.getChurchsByZone(zoneId).subscribe((data: any) => {
+      this.churchs = data;
+    });
   }
 
   ngOnInit(): void {
@@ -109,6 +130,9 @@ export class ProfileComponent implements OnInit {
         this.account = data;
         this.account.rankId = data?.rank?.id;
         this.account.zoneId = data?.zone?.id;
+        this.account.churchId = data?.church?.id;
+
+        this.getChurchsByZone(data?.zone?.id);
       }
 
     });

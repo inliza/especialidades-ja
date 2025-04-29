@@ -3,6 +3,12 @@
     max-width: 380px;
     margin-bottom: -6px;
   }
+
+  .disabled-field {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  
   
 
   .card {

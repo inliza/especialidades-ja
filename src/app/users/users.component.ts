@@ -63,6 +63,11 @@ export class UsersComponent implements OnInit {
             user.lastName.toLowerCase().includes(this.searchCriteria.toLowerCase())
           );
           break;
+        case 'apellido2':
+          this.filteredUsers = this.users.filter(user =>
+            user.secondLastName.toLowerCase().includes(this.searchCriteria.toLowerCase())
+          );
+          break;
         case 'especialidad':
           this.filteredUsers = this.users.filter((user: any) =>
             user.specialties.some((specialty: any) =>
@@ -129,7 +134,8 @@ export class UsersComponent implements OnInit {
 
   filters = [
     { label: 'Nombre', value: 'nombre' },
-    { label: 'Apellido', value: 'apellido' },
+    { label: 'Primer Apellido', value: 'apellido' },
+    { label: 'Segundo Apellido', value: 'apellido2' },
     { label: 'Especialidad', value: 'especialidad' },
     { label: 'Zona', value: 'zona' },
   ];

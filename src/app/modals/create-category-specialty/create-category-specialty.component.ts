@@ -24,6 +24,8 @@ export class CreateCategorySpecialtyComponent implements OnInit {
   public isEditing: boolean = false;
   idCategory!: number;
   name = '';
+  url = '';
+
   public isLoading = false;
 
   constructor(
@@ -62,7 +64,7 @@ export class CreateCategorySpecialtyComponent implements OnInit {
           });
         });
       } else {
-        this.service.createSpeciality({ name: this.name, id_category: this.selectCategories.value }).subscribe((data: any) => {
+        this.service.createSpeciality({ name: this.name, id_category: this.selectCategories.value, url: this.url }).subscribe((data: any) => {
           this.toast.showToast('success', 'Datos guardados');
           this.closeDialog('Ok');
           this.spinner.hide();

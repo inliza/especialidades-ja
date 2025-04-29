@@ -42,7 +42,7 @@
                 class="example-full-width mt-2"
                 appearance="outline"
               >
-                <mat-label>Apellido</mat-label>
+                <mat-label>Primer Apellido</mat-label>
                 <input
                   matInput
                   required
@@ -52,8 +52,29 @@
                   [(ngModel)]="account.lastName"
                   [disabled]="!isEditing"
                 />
-                <mat-icon matSuffix>badge</mat-icon>
+                <mat-icon matSuffix>account_circle</mat-icon>
                 @if (lastname.invalid && lastname.touched) {
+                <mat-error>Este campo es obligatorio</mat-error>
+                }
+              </mat-form-field>
+
+              <!-- Segundpo Apellido -->
+              <mat-form-field
+                class="example-full-width mt-2"
+                appearance="outline"
+              >
+                <mat-label>Segundo Apellido</mat-label>
+                <input
+                  matInput
+                  required
+                  type="text"
+                  name="secondlastname"
+                  #secondlastname="ngModel"
+                  [(ngModel)]="account.secondLastName"
+                  [disabled]="!isEditing"
+                />
+                <mat-icon matSuffix>badge</mat-icon>
+                @if (secondlastname.invalid && secondlastname.touched) {
                 <mat-error>Este campo es obligatorio</mat-error>
                 }
               </mat-form-field>
@@ -83,28 +104,6 @@
                 >
               </mat-form-field>
 
-              <!-- Iglesia -->
-              <mat-form-field
-                class="example-full-width mt-2"
-                appearance="outline"
-              >
-                <mat-label>Iglesia</mat-label>
-                <input
-                  matInput
-                  required
-                  type="text"
-                  name="church"
-                  #church="ngModel"
-                  [(ngModel)]="account.church"
-                  [disabled]="!isEditing"
-                />
-                <mat-icon matSuffix>church</mat-icon>
-
-                @if (church.invalid && church.touched) {
-                <mat-error>Este campo es obligatorio</mat-error>
-                }
-              </mat-form-field>
-
               <!-- Correo -->
               <mat-form-field
                 class="example-full-width mt-2"
@@ -128,6 +127,27 @@
                 <mat-error>Este campo es obligatorio</mat-error>
                 }
               </mat-form-field>
+
+              <!-- Contraseña -->
+              <mat-form-field
+                class="example-full-width mt-2"
+                appearance="outline"
+              >
+                <mat-label>Contraseña</mat-label>
+                <input
+                  matInput
+                  required
+                  type="password"
+                  name="password"
+                  #password="ngModel"
+                  [(ngModel)]="password"
+                  [disabled]="!isEditing"
+                />
+                <mat-icon matSuffix>lock</mat-icon>
+                @if (password.invalid && password.touched) {
+                <mat-error>Este campo es obligatorio</mat-error>
+                }
+              </mat-form-field>
             </div>
 
             <div class="col-12 col-md-6">
@@ -139,7 +159,6 @@
                 <mat-label>Alias</mat-label>
                 <input
                   matInput
-                  required
                   type="text"
                   name="alias"
                   #alias="ngModel"
@@ -190,12 +209,36 @@
                   [formControl]="selectZones"
                   required
                   [disabled]="!isEditing"
+                  (selectionChange)="getChurchsByZone($event.value)"
                 >
                   <mat-option *ngFor="let m of zones" [value]="m?.id">
                     {{ m?.name | titlecase }}
                   </mat-option>
                 </mat-select>
                 <mat-error *ngIf="selectZones.errors?.['required']">
+                  Este campo es obligatorio
+                </mat-error>
+              </mat-form-field>
+
+              <!-- Iglesia -->
+              <mat-form-field
+                class="example-full-width mt-2"
+                appearance="outline"
+              >
+                <mat-select
+                  placeholder="Iglesia"
+                  name="church"
+                  required
+                  [(ngModel)]="account.churchId"
+                  [formControl]="selectChurchs"
+                  required
+                  [disabled]="!isEditing"
+                >
+                  <mat-option *ngFor="let m of churchs" [value]="m?.id">
+                    {{ m?.name | titlecase }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="selectChurchs.errors?.['required']">
                   Este campo es obligatorio
                 </mat-error>
               </mat-form-field>
@@ -221,27 +264,6 @@
                 <mat-error *ngIf="selectRanks.errors?.['required']">
                   Este campo es obligatorio
                 </mat-error>
-              </mat-form-field>
-
-              <!-- Contraseña -->
-              <mat-form-field
-                class="example-full-width mt-2"
-                appearance="outline"
-              >
-                <mat-label>Contraseña</mat-label>
-                <input
-                  matInput
-                  required
-                  type="password"
-                  name="password"
-                  #password="ngModel"
-                  [(ngModel)]="password"
-                  [disabled]="!isEditing"
-                />
-                <mat-icon matSuffix>lock</mat-icon>
-                @if (password.invalid && password.touched) {
-                <mat-error>Este campo es obligatorio</mat-error>
-                }
               </mat-form-field>
             </div>
 
@@ -368,11 +390,15 @@
       </form>
     </div>
   </div> -->
-  <ngx-spinner
+<ngx-spinner
   bdColor="rgba(51,51,51,0.8)"
   size="medium"
   color="#fff"
   type="ball-scale-multiple"
 >
-  <img src="assets/images/loading.gif" alt="Cargando..." style="width: 100px; height: auto;" />
+  <img
+    src="assets/images/loading.gif"
+    alt="Cargando..."
+    style="width: 100px; height: auto"
+  />
 </ngx-spinner>

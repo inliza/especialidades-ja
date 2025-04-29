@@ -25,13 +25,14 @@ export class UsersProfileComponent implements OnInit {
   public account: {
     firstName: string,
     lastName: string,
+    secondLastName: string,
     alias: string,
     birthDate: Date,
     email: string,
     phone: string,
-    zoneId: string,
-    church: string,
-    rankId: string
+    zone: any,
+    church: any,
+    rank: any
   }
   constructor(
     private service: UsersService,
@@ -42,13 +43,14 @@ export class UsersProfileComponent implements OnInit {
     this.account = {
       firstName: "",
       lastName: "",
+      secondLastName: "",
       alias: "",
       birthDate: new Date(),
       email: "",
       phone: "",
-      zoneId: "",
+      zone: "",
       church: "",
-      rankId: ""
+      rank: ""
     }
   }
 
@@ -58,6 +60,7 @@ export class UsersProfileComponent implements OnInit {
       this.spinner.show();
       this.service.getSpecialtiesByUser(id).subscribe((data: any) => {
         this.account = data;
+        this.account.church = data.church?.name;
         this.grouped = this.groupByCategory(data.specialties);
         this.spinner.hide();
       }, error => {
@@ -89,5 +92,22 @@ export class UsersProfileComponent implements OnInit {
 
     return Array.from(groupedMap.values());
   }
+
+  isAdult(birthDate: string | Date): boolean {
+    if (!birthDate) {
+      return false;
+    }
+    const today = new Date();
+    const birth = new Date(birthDate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+      age--;
+    }
+  
+    return age >= 18;
+  }
+  
 
 }

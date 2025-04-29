@@ -32,7 +32,7 @@
   <thead>
     <tr>
       <th scope="col" class="d-none d-md-table-cell">Nombre</th>
-      <th scope="col" class="d-none d-md-table-cell">Apellido</th>
+      <th scope="col" class="d-none d-md-table-cell">Apellidos</th>
       <th scope="col" class="d-md-none">Nombre</th>
       <th scope="col">Zona</th>
       <th scope="col">Iglesia</th>
@@ -43,10 +43,10 @@
   <tbody>
     <tr *ngFor="let item of filteredUsers; let j = index">
       <td class="d-none d-md-table-cell">{{ item.firstName }}</td>
-      <td class="d-none d-md-table-cell">{{ item.lastName }}</td>
-      <td class="d-md-none">{{ item.firstName }} {{ item.lastName }}</td>
+      <td class="d-none d-md-table-cell">{{ item.lastName }} {{ item.secondLastName }}</td>
+      <td class="d-md-none">{{ item.firstName }} {{ item.lastName }} {{ item.secondLastName }}</td>
       <td>{{ item.zone.name }}</td>
-      <td>{{ item.church }}</td>
+      <td>{{ item.church?.name }}</td>
       <td class="d-none d-md-table-cell">{{ item.rank.name }}</td>
       <td>
         <button
