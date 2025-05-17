@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { SpecialtiesService } from '../services/specialties.service';
-import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import Swal from 'sweetalert2';
 import { ToastService } from '../services/toast.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserSpecialtiesModalComponent } from '../user-specialties-modal/user-specialties-modal.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-user-specialties',
-  imports: [CommonModule, MatCheckboxModule, FormsModule, MatExpansionModule],
+  imports: [SharedModule, MatCheckboxModule, MatExpansionModule],
   templateUrl: './user-specialties.component.html',
   styleUrl: './user-specialties.component.css'
 })

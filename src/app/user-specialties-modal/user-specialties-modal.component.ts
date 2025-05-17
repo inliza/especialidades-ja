@@ -1,6 +1,5 @@
-import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,10 +10,11 @@ import { ToastService } from '../services/toast.service';
 import Swal from 'sweetalert2';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-user-specialties-modal',
-  imports: [FormsModule, MatInputModule, MatFormFieldModule, MatSelectModule, ReactiveFormsModule, CommonModule, MatCheckboxModule, MatProgressSpinnerModule],
+  imports: [SharedModule, MatInputModule, MatFormFieldModule, MatSelectModule, ReactiveFormsModule, MatCheckboxModule, MatProgressSpinnerModule],
   templateUrl: './user-specialties-modal.component.html',
   styleUrl: './user-specialties-modal.component.css'
 })

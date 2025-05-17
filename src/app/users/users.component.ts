@@ -1,21 +1,20 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { UsersService } from '../services/users.service';
 import { Router } from '@angular/router';
-import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import Swal from 'sweetalert2';
 import { ToastService } from '../services/toast.service';
 import { AuthService } from '../services/auth.service';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-users',
-  imports: [CommonModule, FormsModule, MatSelectModule, MatInputModule, MatIconModule, NgxSpinnerModule, MatButtonModule, MatTooltipModule],
+  imports: [SharedModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, MatTooltipModule],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })

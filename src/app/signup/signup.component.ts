@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -8,13 +8,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
 import { UsersService } from '../services/users.service';
-import { CommonModule } from '@angular/common';
-import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
 import Swal from 'sweetalert2';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-signup',
-  imports: [CommonModule, FormsModule, MatInputModule, MatFormFieldModule, MatIconModule, RouterModule, MatSelectModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule, NgxSpinnerModule],
+  imports: [SharedModule, MatInputModule, MatFormFieldModule, MatIconModule, RouterModule, MatSelectModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
